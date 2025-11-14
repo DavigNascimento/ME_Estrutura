@@ -1,0 +1,28 @@
+\section{Projeto}
+	Esse projeto é um gerenciador de campeonatos, é proposto a arquitetura e funcionamento de um sistema moderno de classificações, colocações e decisões de partidas, todas automáticas e com relatorios. Além disso a implementação de um ranking por jogador.
+
+\section{Equipes}
+	Cada equipe é constituida de 7 jogadores, formadas por uma lista duplamente encadeada, pela necessidade de um alocamento dinâmico e não indexação dos jogadores na estrutura.
+
+\section{Ranqueamento de Jogadores}
+	O sistema de ranking dos jogadores utiliza a quantidade de gols e assistências realizadas pelo jogador no campeonato como as estatísticas para a classificação final.
+
+\section{Organização}
+	O chaveamento das equipes inscritas considera fase de grupos, oitavas de final, quartas de final, semi final, final e disputa do 3º colocado, sendo o último a disputa entre as 2 equipes das semi finais que nao foram classificadas para a final
+	
+	\subsection{Ordem de Partidas}
+		A organização desses confrontos serão realizados com filas, sendo que as quartas de final somente serão iniciadas quando não houver mais disputas pendentes nas oitavas, dessa forma até a final. Portanto é uma fila contendo as etapas do campeonato.
+		Cada etapa é composta por confrontos entre 2 equipes, sendo uma fila, tal que um confronto somente é ralizado quando outro finalizar. O encadeamento do confronto é definido por uma intercalação entre os diferentes lados do campeonato, assumindo que esse sistema usa o modelo de campeonato ilustrado na Fig.~\ref{fig:figura1}.
+		
+		\begin{figure}[h!]
+			\centering
+			\includegraphics[scale=.13]{figuras/6740682-chave-de-torneio-de-equipe-vetor.jpg}
+			\caption{estrutura utilizada para a logica do sistema}
+			\label{fig:figura1}
+		\end{figure}
+		
+		A fila de controntos é formada pelo intercalamento dos times de ambos os lados, como: primeiro da esquera, primeiro da direita, segundo da esquerta, segundo da direita, e assim sucessivamente.
+		
+		\subsection{Fase de grupos}
+			Na fase de grupos terá no minimo 4 grupos (A, B, C, D, ...) de 4 times cada passando para a proxima etapa somente os 1º e 2º colocado de cada grupo. Os confrontos nas oitavas, sendo a proxima etapa, são formados pelo 1º colocado de um grupo com o 2º de outro, evitando o partidas repetidas e favorecendo a competitividade.		
+

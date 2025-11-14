@@ -1,0 +1,65 @@
+\documentclass[pdftex,12pt,oneside,a4paper,brazil]{abntex2}
+
+\usepackage[brazil]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{indentfirst}
+\usepackage{graphicx}
+\usepackage{multicol,lipsum}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{float}
+\usepackage[hang]{footmisc}
+\usepackage{hyperref}
+
+\usepackage{eso-pic}
+\usepackage{lipsum}
+\usepackage{transparent}
+
+\usepackage{imakeidx}
+\makeindex[columns=3, title=Alphabetical Index, intoc]
+
+
+\begin{document}
+
+\pagenumbering{arabic}
+    \begin{sloppypar}
+    
+    \selectlanguage{brazil}
+    \frenchspacing
+    
+        % Capa
+        \input{capa}
+        \cleardoublepage
+       
+            
+        % Contra capa
+        \input{contracapa}
+        \cleardoublepage
+      
+        
+        % Sumário
+        \vspace{1cm}
+        \tableofcontents*
+       % \newpage
+        %\thispagestyle{empty}
+        \cleardoublepage
+   
+
+        % Introdução
+        \chapter[INTRODUÇÃO]{INTRODUÇÃO}\label{cap:refcomandos}
+        \input{introducao}
+        
+        % Justificativa
+        \chapter[JUSTIFICATIVA]{JUSTIFICATIVA}\label{cap:refcomandos}
+        \input{justificativa}
+
+        % Referências bibliográficas
+        \chapter[REFERÊNCIAS]{REFERÊNCIAS}\label{cap:refcomandos}
+        \input{referencias}
+
+    \end{sloppypar}
+\end{document}
+% colocar o nº em cada página a partir da introdução no lado direito em cima
