@@ -13,6 +13,7 @@
 \usepackage{float}
 \usepackage[hang]{footmisc}
 \usepackage{hyperref}
+\usepackage{url}
 
 \usepackage{eso-pic}
 \usepackage{lipsum}
@@ -20,6 +21,14 @@
 
 \usepackage{imakeidx}
 \makeindex[columns=3, title=Alphabetical Index, intoc]
+
+\usepackage[
+backend=biber,
+style=abnt,
+language=brazil
+]{biblatex}
+\addbibresource{referencias.bib}
+
 
 
 \begin{document}
@@ -29,25 +38,21 @@
     
     \selectlanguage{brazil}
     \frenchspacing
-    
+    	
         % Capa
         \input{capa}
         \cleardoublepage
-       
-            
+        
         % Contra capa
         \input{contracapa}
         \cleardoublepage
-      
         
         % Sumário
         \vspace{1cm}
         \tableofcontents*
-       % \newpage
         %\thispagestyle{empty}
         \cleardoublepage
-   
-
+		
         % Introdução
         \chapter[INTRODUÇÃO]{INTRODUÇÃO}\label{cap:refcomandos}
         \input{introducao}
@@ -55,11 +60,10 @@
         % Justificativa
         \chapter[JUSTIFICATIVA]{JUSTIFICATIVA}\label{cap:refcomandos}
         \input{justificativa}
-
-        % Referências bibliográficas
-        \chapter[REFERÊNCIAS]{REFERÊNCIAS}\label{cap:refcomandos}
-        \input{referencias}
-
+		
+    	\clearpage
+    	\printbibliography
+        
     \end{sloppypar}
 \end{document}
 % colocar o nº em cada página a partir da introdução no lado direito em cima
