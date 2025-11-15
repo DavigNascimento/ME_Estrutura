@@ -1,4 +1,4 @@
-package com.fut7.models;
+package com.fut7.models.TAD;
 
 import java.util.Iterator;
 
