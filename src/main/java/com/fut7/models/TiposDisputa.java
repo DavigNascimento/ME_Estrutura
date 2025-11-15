@@ -1,0 +1,24 @@
+package com.fut7.models;
+
+public enum TiposDisputa {
+    GRUPOS("Grupos"),
+    OITAVAS("Oitavas"),
+    QUARTAS("Quartas"),
+    SEMI_FINAL("Semi-Final"),
+    FINAL("Final");
+
+    private final String label;
+
+    TiposDisputa(String label) {
+        this.label = label;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    @Override
+    public String toString() {
+        return label;
+    }
+}
