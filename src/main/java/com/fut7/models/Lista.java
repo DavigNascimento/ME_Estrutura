@@ -1,7 +1,9 @@
 package com.fut7.models;
 
-public class Lista<T> {
-    
+import java.util.Iterator;
+
+public class Lista<T> implements Iterable<T> {
+
     private No<T> head;
     private No<T> tail;
     private int size;
@@ -14,8 +16,7 @@ public class Lista<T> {
 
     public void add(T value) {
         No<T> novo = new No<>(value);
-        if (head == null)
-        {
+        if (head == null) {
             head = novo;
             tail = novo;
         } else {
@@ -31,13 +32,13 @@ public class Lista<T> {
         while (current != null) {
             if (current.getValue().equals(value)) {
                 // nao head
-                if(current.getPrev() != null) {
+                if (current.getPrev() != null) {
                     current.getPrev().setNext(current.getNext());
                 } else {
                     head = current.getNext();
                 }
                 // nao tail
-                if(current.getNext() != null) {
+                if (current.getNext() != null) {
                     current.getNext().setPrev(current.getPrev());
                 } else {
                     tail = current.getPrev();
@@ -63,21 +64,45 @@ public class Lista<T> {
         }
     }
 
+    @Override
+    public Iterator<T> iterator() {
+        return new Iterator<T>() {
+            private No<T> current = head;
+
+            @Override
+            public boolean hasNext() {
+                return current != null;
+            }
+
+            @Override
+            public T next() {
+                T value = current.getValue();
+                current = current.getNext();
+                return value;
+            }
+        };
+    }
+
     public No<T> getHead() {
         return head;
     }
+
     public int getSize() {
         return size;
     }
+
     public No<T> getTail() {
         return tail;
     }
+
     public void setHead(No<T> head) {
         this.head = head;
     }
+
     public void setSize(int size) {
         this.size = size;
     }
+
     public void setTail(No<T> tail) {
         this.tail = tail;
     }
