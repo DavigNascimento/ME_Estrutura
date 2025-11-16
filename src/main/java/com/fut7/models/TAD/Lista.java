@@ -50,6 +50,17 @@ public class Lista<T> implements Iterable<T> {
         }
     }
 
+    public T get(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+        }
+        No<T> current = head;
+        for (int i = 0; i < index; i++) {
+            current = current.getNext();
+        }
+        return current.getValue();
+    }
+
     public void clear() {
         head = null;
         tail = null;
