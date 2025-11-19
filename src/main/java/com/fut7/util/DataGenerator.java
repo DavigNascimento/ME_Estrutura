@@ -66,11 +66,32 @@ public class DataGenerator {
         }
     }
 
+    public static Disputa gerarDisputaAleatoria(Lista<Time> times) {
+        if (times == null || times.getSize() < 2) {
+            throw new IllegalArgumentException("É necessário pelo menos dois times para gerar uma disputa.");
+        }
+
+        Lista<Time> timesNaDisputa = new Lista<>();
+        timesNaDisputa.add(times.getElementAt(0));
+        timesNaDisputa.add(times.getElementAt(1));
+
+        Disputa disputa = Disputa.builder()
+            .times(timesNaDisputa)
+            .golsPorTime(new HashMap<>())
+            .golsPorJogador(new HashMap<>())
+            .assistenciasPorJogador(new HashMap<>())
+            .build();
+
+        gerarResultado(disputa);
+        return disputa;
+    }
+
     public static void atribuirJogadoresAoTime(Time time) {
         for (int i = 0; i < 7; i++) {
             Jogador jogador = gerarJogador();
             time.getJogadores().add(jogador);
         }
+        time.atribuirNumeros();
     }
 
     public static String gerarResultado(Disputa disputa) {

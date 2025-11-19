@@ -2,6 +2,8 @@ package com.fut7.view;
 
 import com.fut7.models.TAD.Lista;
 import com.fut7.models.disputas.Disputa;
+import com.fut7.repository.TimeRepository;
+import com.fut7.util.DataGenerator;
 
 public class MenuPartida {
     
@@ -24,7 +26,7 @@ public class MenuPartida {
                     return;
                 
                 case 1:
-                    // gerarPartidas();
+                    gerarPartidas();
                     break;
                 
                 case 2:
@@ -38,13 +40,24 @@ public class MenuPartida {
         }
     }
 
+    private void gerarPartidas() {
+        System.out.println("\n--- GERAR PARTIDAS ---");
+        partidas.add(DataGenerator.gerarDisputaAleatoria(TimeRepository.getAll()));
+        System.out.println("\n✓ Partida gerada com sucesso:\n");
+    }
+
     private void listarPartidas() {
-        System.out.println("\n--- LISTA DE JOGADORES ---");
+        System.out.println("\n--- LISTA DE Partidas ---");
         if (partidas.getSize() == 0) {
             System.out.println("Nenhum jogador cadastrado.\n");
         } else {
-            partidas.print();
-            System.out.println("Total: " + partidas.getSize() + " jogador(es)\n");
+            System.out.println("Partidas cadastradas:");
+            for (int i = 0; i < partidas.getSize(); i++) {
+                Disputa partida = partidas.getElementAt(i);
+                System.out.println((i + 1) + ". " + partida.getFase());
+                System.out.println("   Times: " + partida.getTimes().getElementAt(0).getNome() + " vs " + partida.getTimes().getElementAt(1).getNome());
+            }
+            System.out.println("Total: " + partidas.getSize() + " partidas(es)\n");
         }
     }
 }
