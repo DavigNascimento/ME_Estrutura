@@ -19,5 +19,10 @@
             <version>1.18.32</version>    <!-- use a versão mais recente -->
             <scope>provided</scope>
         </dependency>    
+        <dependency>
+            <groupId>com.github.javafaker</groupId>
+            <artifactId>javafaker</artifactId>
+            <version>1.0.2</version>
+        </dependency>
     </dependencies>
 </project>
