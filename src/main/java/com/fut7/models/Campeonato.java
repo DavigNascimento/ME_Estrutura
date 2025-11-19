@@ -9,6 +9,7 @@ import com.fut7.models.disputas.Oitavas;
 import com.fut7.models.disputas.Quartas;
 import com.fut7.models.disputas.Semifinal;
 import com.fut7.models.disputas.TerceiroColocado;
+import com.fut7.util.DataGenerator;
 
 import lombok.Data;
 
@@ -26,8 +27,17 @@ public class Campeonato {
         fases.enqueue(new Final()); // 4
     }
 
-    public void povoarOitavas(Fila<Disputa> disputas) {
-        // Gerar dados
+    public void povoarOitavas() {
+        Fase oitavas = fases.dequeue();
+        for(int i = 0; i < 16; i += 2) {
+            Lista<Time> times = new Lista<>();
+            times.add(DataGenerator.gerarTime());
+            times.add(DataGenerator.gerarTime());
+
+            Disputa disputaOitava = DataGenerator.gerarDisputaAleatoria(times);
+            oitavas.adicionarDisputa(disputaOitava);
+        }
+        fases.enqueue(oitavas);
     }
 
     public void moverParaProximaFase() {
