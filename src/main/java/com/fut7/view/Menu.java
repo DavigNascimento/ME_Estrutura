@@ -1,5 +1,6 @@
 package com.fut7.view;
 
+import com.fut7.models.Time;
 import com.fut7.models.Jogador;
 import com.fut7.models.TAD.Lista;
 import com.fut7.util.DataGenerator;
@@ -7,12 +8,10 @@ import com.fut7.util.DataGenerator;
 public class Menu {
     
     private Lista<Jogador> jogadores;
-    private DataGenerator generator;
-    
+
     public Menu() {
         System.out.println("Fut-7");
         this.jogadores = new Lista<>();
-        this.generator = new DataGenerator();
 
         while (true) {
             OptionHandler optionHandler = new OptionHandler();
@@ -47,6 +46,10 @@ public class Menu {
             OptionHandler optionHandler = new OptionHandler();
             optionHandler.addOption("Listar Jogadores");
             optionHandler.addOption("Gerar Jogador Aleatório");
+            optionHandler.addOption("Gerar Time Aleatório");
+            optionHandler.addOption("Lista Times");
+
+
             int choice = optionHandler.getOption();
 
             switch (choice) {
@@ -61,6 +64,15 @@ public class Menu {
                 case 2:
                     gerarJogadorAleatorio();
                     break;
+
+                case 3:
+                    gerarTimeAleatorio();
+                    break;
+                
+                case 4:
+                    listarTimes();
+                    break;
+
                 
                 default:
                     System.out.println("Opção escolhida: " + choice);
@@ -80,10 +92,21 @@ public class Menu {
     }
     
     private void gerarJogadorAleatorio() {
-        Jogador novoJogador = generator.gerarJogador();
+        Jogador novoJogador = DataGenerator.gerarJogador();
         jogadores.add(novoJogador);
         System.out.println("\n✓ Jogador gerado com sucesso:");
         System.out.println(novoJogador);
         System.out.println();
+    }
+    private void gerarTimeAleatorio() {
+        Time novoTime = DataGenerator.gerarTime();
+        System.out.println("\n✓ Time gerado com sucesso:");
+        System.out.println(novoTime);
+        System.out.println();
+    }
+    private void listarTimes() {
+        System.out.println("\n--- LISTA DE TIMES ---");
+        // Implementar a lógica para listar os times cadastrados
+        System.out.println("Funcionalidade não implementada ainda.\n");
     }
 }
