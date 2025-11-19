@@ -5,11 +5,11 @@ import com.fut7.models.TAD.Fila;
 import lombok.Data;
 
 @Data
-public class Semifinal {
+public class Semifinal implements Fase{
     
     private Fila<Disputa> semifinal;
 
-    public void adicionarSemifinal(Disputa disputa) {
+    public void adicionarDisputa(Disputa disputa) {
         if (semifinal == null) {
             semifinal = new Fila<>();
         }
@@ -21,7 +21,7 @@ public class Semifinal {
         semifinal.enqueue(disputa);
     }
 
-    public void popSemifinal() {
+    public void popDisputa() {
         if (semifinal != null && !(semifinal.getSize() == 0)) {
             semifinal.dequeue();
         }

@@ -5,11 +5,11 @@ import com.fut7.models.TAD.Fila;
 import lombok.Data;
 
 @Data
-public class Quartas {
+public class Quartas implements Fase {
 
     private Fila<Disputa> quartas;
 
-    public void adicionarQuarta(Disputa disputa) {
+    public void adicionarDisputa(Disputa disputa) {
         if (quartas == null) {
             quartas = new Fila<>();
         }
@@ -21,7 +21,7 @@ public class Quartas {
         quartas.enqueue(disputa);
     }
 
-    public void popQuarta() {
+    public void popDisputa() {
         if (quartas != null && !(quartas.getSize() == 0)) {
             quartas.dequeue();
         }
