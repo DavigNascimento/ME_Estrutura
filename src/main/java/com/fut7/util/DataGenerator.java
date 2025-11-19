@@ -7,6 +7,7 @@ import java.util.HashMap;
 import com.github.javafaker.Faker;
 import com.fut7.models.Jogador;
 import com.fut7.models.Time;
+import com.fut7.models.TAD.Lista;
 import com.fut7.models.disputas.Disputa;
 
 
@@ -33,6 +34,7 @@ public class DataGenerator {
     public static Time gerarTime() {
         return Time.builder()
             .nome(faker.team().name())
+            .jogadores(new Lista<>())
             .estadio(faker.company().name() + " Stadium")
             .cidadeSede(faker.address().cityName())
             .tecnico(faker.name().fullName())
@@ -64,12 +66,18 @@ public class DataGenerator {
         }
     }
 
-    // entre dois times distintos da disputa. Atualiza mapas e retorna a string do placar.
+    public static void atribuirJogadoresAoTime(Time time) {
+        for (int i = 0; i < 7; i++) {
+            Jogador jogador = gerarJogador();
+            time.getJogadores().add(jogador);
+        }
+    }
+
     public static String gerarResultado(Disputa disputa) {
         if (disputa == null || disputa.getTimes() == null || disputa.getTimes().getSize() < 2) {
             return "Disputa sem times suficientes";
         }
-        // garantir mapas e entradas iniciais (inline)
+        // Inicia os valores dos HashMaps se estiverem nulos com 0
         if (disputa.getGolsPorTime() == null) disputa.setGolsPorTime(new HashMap<>());
         if (disputa.getGolsPorJogador() == null) disputa.setGolsPorJogador(new HashMap<>());
         if (disputa.getAssistenciasPorJogador() == null) disputa.setAssistenciasPorJogador(new HashMap<>());
@@ -83,13 +91,8 @@ public class DataGenerator {
             }
         }
 
-        int size = disputa.getTimes().getSize();
-        int idxA = random.nextInt(size);
-        int idxB;
-        do { idxB = random.nextInt(size); } while (idxB == idxA);
-        Time timeA = disputa.getTimes().get(idxA);
-        Time timeB = disputa.getTimes().get(idxB);
-
+        Time timeA = disputa.getTimes().getElementAt(0);
+        Time timeB = disputa.getTimes().getElementAt(1);
         disputa.getGolsPorTime().putIfAbsent(timeA, disputa.getGolsPorTime().getOrDefault(timeA, 0));
         disputa.getGolsPorTime().putIfAbsent(timeB, disputa.getGolsPorTime().getOrDefault(timeB, 0));
 
@@ -100,11 +103,11 @@ public class DataGenerator {
         for (int i = 0; i < golsA; i++) {
             if (timeA.getJogadores() != null && timeA.getJogadores().getSize() > 0) {
                 int qtd = timeA.getJogadores().getSize();
-                Jogador artilheiro = timeA.getJogadores().get(random.nextInt(qtd));
+                Jogador artilheiro = timeA.getJogadores().getElementAt(random.nextInt(qtd));
                 disputa.getGolsPorJogador().put(artilheiro, disputa.getGolsPorJogador().getOrDefault(artilheiro, 0) + 1);
                 if (qtd > 1 && random.nextDouble() < 0.6) {
                     Jogador assistente;
-                    do { assistente = timeA.getJogadores().get(random.nextInt(qtd)); } while (assistente == artilheiro);
+                    do { assistente = timeA.getJogadores().getElementAt(random.nextInt(qtd)); } while (assistente == artilheiro);
                     disputa.getAssistenciasPorJogador().put(assistente, disputa.getAssistenciasPorJogador().getOrDefault(assistente, 0) + 1);
                 }
             }
@@ -113,11 +116,11 @@ public class DataGenerator {
         for (int i = 0; i < golsB; i++) {
             if (timeB.getJogadores() != null && timeB.getJogadores().getSize() > 0) {
                 int qtd = timeB.getJogadores().getSize();
-                Jogador artilheiro = timeB.getJogadores().get(random.nextInt(qtd));
+                Jogador artilheiro = timeB.getJogadores().getElementAt(random.nextInt(qtd));
                 disputa.getGolsPorJogador().put(artilheiro, disputa.getGolsPorJogador().getOrDefault(artilheiro, 0) + 1);
                 if (qtd > 1 && random.nextDouble() < 0.6) {
                     Jogador assistente;
-                    do { assistente = timeB.getJogadores().get(random.nextInt(qtd)); } while (assistente == artilheiro);
+                    do { assistente = timeB.getJogadores().getElementAt(random.nextInt(qtd)); } while (assistente == artilheiro);
                     disputa.getAssistenciasPorJogador().put(assistente, disputa.getAssistenciasPorJogador().getOrDefault(assistente, 0) + 1);
                 }
             }
