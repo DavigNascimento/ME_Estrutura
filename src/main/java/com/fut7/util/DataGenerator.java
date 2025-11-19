@@ -35,10 +35,15 @@ public class DataGenerator {
         return Time.builder()
             .nome(faker.team().name())
             .jogadores(new Lista<>())
-            .estadio(faker.company().name() + " Stadium")
+            .patrocinio(gerarPatrocinador())
             .cidadeSede(faker.address().cityName())
             .tecnico(faker.name().fullName())
             .build();
+    }
+
+    private static String gerarPatrocinador() {
+        String[] tipos = {"Banco", "Companhia Aérea", "Energia", "Tecnologia", "Automóveis", "Telecom", "Seguros", "Alimentos", "Bebidas", "Construção", "Farmacêutica", "Varejo"};
+        return faker.company().name() + " " + tipos[random.nextInt(tipos.length)];
     }
 
     // Inicializa estatísticas da disputa (gols e assistências) com zero

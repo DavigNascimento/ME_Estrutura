@@ -14,8 +14,6 @@ public class MenuJogador {
             OptionHandler optionHandler = new OptionHandler();
             optionHandler.addOption("Listar Jogadores");
             optionHandler.addOption("Gerar Jogador Aleatório");
-            optionHandler.addOption("Gerar Time Aleatório");
-            optionHandler.addOption("Lista Times");
 
 
             int choice = optionHandler.getOption();

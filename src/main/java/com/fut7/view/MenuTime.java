@@ -80,7 +80,7 @@ public class MenuTime {
             Time time = times.getElementAt(i);
             System.out.println("Detalhes do Time: " + time.getNome());
             System.out.println("Cidade: " + time.getCidadeSede());
-            System.out.println("Estádio: " + time.getEstadio());
+            System.out.println("Patrocínio: " + time.getPatrocinio());
             System.out.println("Técnico: " + time.getTecnico());
             System.out.println("Jogadores:");
             if (time.getJogadores().getSize() == 0) {
