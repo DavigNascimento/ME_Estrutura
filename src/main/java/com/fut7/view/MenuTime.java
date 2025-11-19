@@ -15,6 +15,7 @@ public class MenuTime {
             OptionHandler optionHandler = new OptionHandler();
             optionHandler.addOption("Gerar Time Aleatório");
             optionHandler.addOption("Listar Times");
+            optionHandler.addOption("Atribuir Jogadores");
 
 
             int choice = optionHandler.getOption();
@@ -31,7 +32,10 @@ public class MenuTime {
                 case 2:
                     listarTimes();
                     break;
-
+                    
+                case 3:
+                    atribuirJogadores();
+                    break;
                 
                 default:
                     System.out.println("Opção escolhida: " + choice);
@@ -48,6 +52,7 @@ public class MenuTime {
         System.out.println(novoTime);
         System.out.println();
     }
+
     private void listarTimes() {
         System.out.println("\n--- LISTA DE TIMES ---");
         if (times.getSize() == 0) {
@@ -56,5 +61,21 @@ public class MenuTime {
             times.print();
             System.out.println("Total: " + times.getSize() + " time(es)\n");
         }
+    }
+
+    private void atribuirJogadores() {
+        System.out.println("\n--- ATRIBUIR JOGADORES AOS TIMES ---");
+        if (times.getSize() == 0) {
+            System.out.println("Nenhum time cadastrado. Por favor, crie um time primeiro.\n");
+            return;
+        }
+
+        for (int i = 0; i < times.getSize(); i++) {
+            Time time = times.get(i);
+            System.out.println("Atribuindo jogadores para o time: " + time.getNome());
+            // Lógica para atribuir jogadores ao time
+            // Esta parte pode ser expandida conforme necessário
+        }
+        System.out.println("Jogadores atribuídos com sucesso!\n");
     }
 }

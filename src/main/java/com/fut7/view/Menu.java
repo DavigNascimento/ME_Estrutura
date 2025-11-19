@@ -27,6 +27,10 @@ public class Menu {
                     new MenuJogador();
                     break;
             
+                case 3:
+                    new MenuPartida();
+                    break;
+
                 default:
                     System.out.println("Opção escolhida: " + choice);
                     break;
