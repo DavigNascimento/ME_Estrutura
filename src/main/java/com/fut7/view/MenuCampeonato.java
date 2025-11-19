@@ -48,7 +48,15 @@ public class MenuCampeonato {
             return;
         }
         campeonato = new Campeonato();
-        campeonato.povoarOitavas();
+
+        try {
+            campeonato.povoarOitavas();
+
+        } catch (IllegalStateException e) {
+            System.out.println(e.getMessage());
+            campeonato = null;
+            return;
+        }
         System.out.println("Campeonato iniciado com sucesso!");
     }
 
@@ -61,7 +69,6 @@ public class MenuCampeonato {
             System.out.println("Não há fases suficientes para avançar.");
             return;
         }
-        campeonato.moverParaProximaFase();
         System.out.println("Avançou para a próxima fase do campeonato.");
     }
 }

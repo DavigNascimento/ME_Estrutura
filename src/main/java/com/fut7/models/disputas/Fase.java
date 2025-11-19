@@ -5,5 +5,6 @@ import com.fut7.models.TAD.Fila;
 public interface Fase {
     void adicionarDisputa(Disputa disputa);
     Disputa popDisputa();
+    void realizarDisputas();
     Fila<Disputa> getDisputas();
 }

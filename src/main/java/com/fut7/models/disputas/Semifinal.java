@@ -3,6 +3,7 @@ package com.fut7.models.disputas;
 import com.fut7.models.Time;
 import com.fut7.models.TAD.Fila;
 import com.fut7.models.TAD.Lista;
+import com.fut7.util.DataGenerator;
 
 import lombok.Data;
 
@@ -43,6 +44,18 @@ public class Semifinal implements Fase{
                 .fase(TiposDisputa.TERCEIRO_COLOCADO)
                 .build();
         return disputa;
+    }
+    
+    public void realizarDisputas() {
+        if (semifinal == null || semifinal.getSize() == 0) {
+            System.out.println("Nenhuma disputa para realizar na Semifinal.");
+            return;
+        }
+
+        while (semifinal.getSize() > 0) {
+            Disputa disputa = semifinal.remove(0);
+            DataGenerator.gerarResultado(disputa);
+        }
     }
 
     public Fila<Disputa> getDisputas() {

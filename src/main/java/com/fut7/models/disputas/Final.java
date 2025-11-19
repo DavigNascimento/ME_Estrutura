@@ -1,7 +1,7 @@
 package com.fut7.models.disputas;
 
 import com.fut7.models.TAD.Fila;
-import com.fut7.models.TAD.Lista;
+import com.fut7.util.DataGenerator;
 
 import lombok.Data;
 
@@ -27,6 +27,18 @@ public class Final implements Fase {
             return finalistas.dequeue();
         }
         return null;
+    }
+    
+    public void realizarDisputas() {
+        if (finalistas == null || finalistas.getSize() == 0) {
+            System.out.println("Nenhuma disputa para realizar na Final.");
+            return;
+        }
+
+        while (finalistas.getSize() > 0) {
+            Disputa disputa = finalistas.dequeue();
+            DataGenerator.gerarResultado(disputa);
+        }
     }
 
     public Fila<Disputa> getDisputas() {

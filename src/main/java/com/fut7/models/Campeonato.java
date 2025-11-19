@@ -1,5 +1,6 @@
 package com.fut7.models;
 
+import java.util.HashMap;
 import com.fut7.models.TAD.Fila;
 import com.fut7.models.TAD.Lista;
 import com.fut7.models.disputas.Disputa;
@@ -32,6 +33,10 @@ public class Campeonato {
         Fase oitavas = fases.dequeue();
         Lista<Time> todosTimes = TimeRepository.getAll();
 
+        if(TimeRepository.getAll().getSize() < 16) {
+            throw new IllegalStateException("Não há times suficientes para iniciar o campeonato. É necessário pelo menos 16 times.");
+        }
+
         for(int i = 0; i < 16; i += 2) {
             Lista<Time> times = new Lista<>();
             times.add(todosTimes.getElementAt(i));
@@ -42,67 +47,5 @@ public class Campeonato {
         }
         fases.enqueue(oitavas);
     }
-
-    public void moverParaProximaFase() {
-        // precisa de pelo menos duas fases para mover
-        if (fases.getSize() < 2) return;
-
-        Fase faseAtual = fases.dequeue();
-        Fase proximaFase = fases.dequeue();
-
-        Disputa disputa = faseAtual.popDisputa();
-        // se não há disputa a mover, restaura a ordem e retorna
-        if (disputa == null) {
-            if (faseAtual.getDisputas().getSize() > 0)
-                fases.enqueue(faseAtual);
-            fases.enqueue(proximaFase);
-            return;
-        }
-
-        // Gerar dados
-        DataGenerator.gerarResultado(disputa);
-        Time t1 = disputa.getVencedor();
-        
-        if(proximaFase instanceof TerceiroColocado && faseAtual instanceof Semifinal) {
-            Disputa disputaPerdedores = faseAtual.popDisputa();
-            Time t2 = disputaPerdedores.getPerdedor();
-
-            if (proximaFase.getDisputas().getSize() == 0) {
-                Lista<Time> timesProximaFase = new Lista<>();
-                timesProximaFase.add(t2);
-
-                Disputa proximaDisputa = Disputa.builder()
-                    .times(timesProximaFase)
-                    .build();
-                proximaFase.adicionarDisputa(proximaDisputa);
-            } else {
-                Disputa disputaProximaFase = proximaFase.popDisputa();
-                disputaProximaFase.getTimes().add(t2);
-                proximaFase.adicionarDisputa(disputaProximaFase);
-            }
-
-            if (faseAtual.getDisputas().getSize() > 0)
-                fases.enqueue(faseAtual);
-            fases.enqueue(proximaFase);
-            return;
-        }
-
-        if (proximaFase.getDisputas().getSize() == 0) {
-            Lista<Time> timesProximaFase = new Lista<>();
-            timesProximaFase.add(t1);
-
-            Disputa proximaDisputa = Disputa.builder()
-                .times(timesProximaFase)
-                .build();
-            proximaFase.adicionarDisputa(proximaDisputa);
-        } else {
-            Disputa disputaProximaFase = proximaFase.popDisputa();
-            disputaProximaFase.getTimes().add(t1);
-            proximaFase.adicionarDisputa(disputaProximaFase);
-        }
-
-        if (faseAtual.getDisputas().getSize() > 0)
-            fases.enqueue(faseAtual);
-        fases.enqueue(proximaFase);
-    }
+    
 }

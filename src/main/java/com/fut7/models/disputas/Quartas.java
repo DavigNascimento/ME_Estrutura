@@ -1,6 +1,7 @@
 package com.fut7.models.disputas;
 
 import com.fut7.models.TAD.Fila;
+import com.fut7.util.DataGenerator;
 
 import lombok.Data;
 
@@ -26,6 +27,18 @@ public class Quartas implements Fase {
             return quartas.dequeue();
         }
         return null;
+    }
+
+    public void realizarDisputas() {
+        if (quartas == null || quartas.getSize() == 0) {
+            System.out.println("Nenhuma disputa para realizar nas Quartas.");
+            return;
+        }
+
+        while (quartas.getSize() > 0) {
+            Disputa disputa = quartas.dequeue();
+            DataGenerator.gerarResultado(disputa);
+        }
     }
 
     public Fila<Disputa> getDisputas() {
