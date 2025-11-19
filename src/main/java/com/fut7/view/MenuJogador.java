@@ -3,7 +3,6 @@ package com.fut7.view;
 import com.fut7.models.Jogador;
 import com.fut7.models.TAD.Lista;
 import com.fut7.repository.JogadorRepository;
-import com.fut7.util.DataGenerator;
 
 public class MenuJogador {
     
@@ -13,8 +12,6 @@ public class MenuJogador {
         while (true) {
             OptionHandler optionHandler = new OptionHandler();
             optionHandler.addOption("Listar Jogadores");
-            optionHandler.addOption("Gerar Jogador Aleatório");
-
 
             int choice = optionHandler.getOption();
 
@@ -26,24 +23,12 @@ public class MenuJogador {
                 case 1:
                     listarJogadores();
                     break;
-                
-                case 2:
-                    gerarJogadorAleatorio();
-                    break;
 
                 default:
                     System.out.println("Opção escolhida: " + choice);
                     break;
             }
         }
-    }
-    
-    private void gerarJogadorAleatorio() {
-        Jogador novoJogador = DataGenerator.gerarJogador();
-        JogadorRepository.add(novoJogador);
-        System.out.println("\n✓ Jogador gerado com sucesso:");
-        System.out.println(novoJogador);
-        System.out.println();
     }
 
     private void listarJogadores() {
