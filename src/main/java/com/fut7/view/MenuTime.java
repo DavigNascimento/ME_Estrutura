@@ -1,7 +1,9 @@
 package com.fut7.view;
 
+import com.fut7.models.Jogador;
 import com.fut7.models.Time;
 import com.fut7.models.TAD.Lista;
+import com.fut7.repository.JogadorRepository;
 import com.fut7.repository.TimeRepository;
 import com.fut7.util.DataGenerator;
 
@@ -12,10 +14,9 @@ public class MenuTime {
         
         while (true) {
             OptionHandler optionHandler = new OptionHandler();
-            optionHandler.addOption("Gerar Time Aleatório");
+            optionHandler.addOption("Gerar Times necessários para o Campeonato");
             optionHandler.addOption("Listar Times");
             optionHandler.addOption("Mostrar Detalhes");
-            optionHandler.addOption("Atribuir Jogadores");
 
 
             int choice = optionHandler.getOption();
@@ -26,7 +27,7 @@ public class MenuTime {
                     return;
                 
                 case 1:
-                    gerarTimeAleatorio();
+                    gerarTimes();
                     break;
                 
                 case 2:
@@ -37,10 +38,6 @@ public class MenuTime {
                     mostrarDetalhes();
                     break;
 
-                case 4:
-                    atribuirJogadores();
-                    break;
-                
                 default:
                     System.out.println("Opção escolhida: " + choice);
                     break;
@@ -49,12 +46,21 @@ public class MenuTime {
     }
 
 
-    private void gerarTimeAleatorio() {
-        Time novoTime = DataGenerator.gerarTime();
-        TimeRepository.add(novoTime);
-        System.out.println("\n✓ Time gerado com sucesso:");
-        System.out.println(novoTime);
-        System.out.println();
+    private void gerarTimes() {
+        for(int i = 0; i < 16; i++) {
+            Time novoTime = DataGenerator.gerarTime();
+            for(int j = 0; j < 7; j++) {
+                Jogador jogador = DataGenerator.gerarJogador();
+                JogadorRepository.add(jogador);
+                novoTime.getJogadores().add(jogador);
+            }
+
+            novoTime.atribuirNumeros();
+            System.out.println("\n✓ Time "+(i)+" gerado com sucesso:");
+            System.out.println(novoTime.toString());
+
+            TimeRepository.add(novoTime);
+        }
     }
 
     private void listarTimes() {
@@ -80,7 +86,7 @@ public class MenuTime {
             Time time = times.getElementAt(i);
             System.out.println("Detalhes do Time: " + time.getNome());
             System.out.println("Cidade: " + time.getCidadeSede());
-            System.out.println("Patrocínio: " + time.getPatrocinio());
+            System.out.println("Estádio: " + time.getPatrocinio());
             System.out.println("Técnico: " + time.getTecnico());
             System.out.println("Jogadores:");
             if (time.getJogadores().getSize() == 0) {
@@ -92,21 +98,5 @@ public class MenuTime {
             }
             System.out.println();
         }
-    }
-
-    private void atribuirJogadores() {
-        System.out.println("\n--- ATRIBUIR JOGADORES AOS TIMES ---");
-        Lista<Time> times = TimeRepository.getAll();
-        if (times.getSize() == 0) {
-            System.out.println("Nenhum time cadastrado. Por favor, crie um time primeiro.\n");
-            return;
-        }
-
-        for (int i = 0; i < times.getSize(); i++) {
-            Time time = times.getElementAt(i);
-            System.out.println("Atribuindo jogadores para o time: " + time.getNome());
-            DataGenerator.atribuirJogadoresAoTime(time);
-        }
-        System.out.println("Jogadores atribuídos com sucesso!\n");
     }
 }
