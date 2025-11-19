@@ -2,11 +2,10 @@ package com.fut7.view;
 
 import com.fut7.models.Time;
 import com.fut7.models.TAD.Lista;
+import com.fut7.repository.TimeRepository;
 import com.fut7.util.DataGenerator;
 
 public class MenuTime {
-
-    private static Lista<Time> times = new Lista<>();
 
     public MenuTime() {
         System.out.println("\n=== MENU Times ===");
@@ -43,13 +42,15 @@ public class MenuTime {
 
     private void gerarTimeAleatorio() {
         Time novoTime = DataGenerator.gerarTime();
-        times.add(novoTime);
+        TimeRepository.add(novoTime);
         System.out.println("\n✓ Time gerado com sucesso:");
         System.out.println(novoTime);
         System.out.println();
     }
+
     private void listarTimes() {
         System.out.println("\n--- LISTA DE TIMES ---");
+        Lista<Time> times = TimeRepository.getAll();
         if (times.getSize() == 0) {
             System.out.println("Nenhum time cadastrado.\n");
         } else {
