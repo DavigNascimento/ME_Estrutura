@@ -31,7 +31,7 @@ public class OptionHandler {
 
         for(int i = 0; i < options.getSize(); i++)
         {
-            System.out.println((i + 1) + " - " + options.get(i).toString());
+            System.out.println((i + 1) + " - " + options.getElementAt(i).toString());
         }
         System.out.println("0 - Sair");
 

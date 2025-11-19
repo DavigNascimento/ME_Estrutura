@@ -21,9 +21,14 @@ public class Quartas implements Fase {
         quartas.enqueue(disputa);
     }
 
-    public void popDisputa() {
+    public Disputa popDisputa() {
         if (quartas != null && !(quartas.getSize() == 0)) {
-            quartas.dequeue();
+            return quartas.dequeue();
         }
+        return null;
+    }
+
+    public Fila<Disputa> getDisputas() {
+        return quartas;
     }
 }

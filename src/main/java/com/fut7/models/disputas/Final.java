@@ -1,6 +1,7 @@
 package com.fut7.models.disputas;
 
 import com.fut7.models.TAD.Fila;
+import com.fut7.models.TAD.Lista;
 
 import lombok.Data;
 
@@ -21,9 +22,14 @@ public class Final implements Fase {
         finalistas.enqueue(disputa);
     }
 
-    public void popDisputa() {
+    public Disputa popDisputa() {
         if (finalistas != null && !(finalistas.getSize() == 0)) {
-            finalistas.dequeue();
+            return finalistas.dequeue();
         }
+        return null;
+    }
+
+    public Fila<Disputa> getDisputas() {
+        return finalistas;
     }
 }
