@@ -25,8 +25,7 @@ public class OptionHandler {
         options.add(option);
     }
 
-    public int getOption()
-    {
+    public int getOption(){
         int choice = -1;
 
         for(int i = 0; i < options.getSize(); i++)
@@ -35,15 +34,22 @@ public class OptionHandler {
         }
         System.out.println("0 - Sair");
 
-        do {
+        while (true) {
             System.out.print(": ");
-            choice = scanner.nextInt();
-            if (choice < 0 || choice > options.getSize()) {
-                System.out.println("Opção inválida. Tente novamente.");
-            }
-        } while (choice < 0 || choice > options.getSize());
 
-        return choice;
+            if (scanner.hasNextInt()) {
+                choice = scanner.nextInt();
+
+                if (choice >= 0 && choice <= options.getSize()) {
+                    return choice;
+                } else {
+                    System.out.println("Opção inválida. Tente novamente");
+                }
+            } else {
+                System.out.println("Entrada inválida, digite apenas números");
+                scanner.next();
+            }
+        }
     }
 
 }
