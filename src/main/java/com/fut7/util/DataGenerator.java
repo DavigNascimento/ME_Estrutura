@@ -2,10 +2,12 @@ package com.fut7.util;
 
 import java.util.Locale;
 import java.util.Random;
+import java.util.HashMap;
 
 import com.github.javafaker.Faker;
 import com.fut7.models.Jogador;
 import com.fut7.models.Time;
+import com.fut7.models.disputas.Disputa;
 
 
 public class DataGenerator {
@@ -36,5 +38,96 @@ public class DataGenerator {
             .tecnico(faker.name().fullName())
             .build();
     }
+
+    // Inicializa estatísticas da disputa (gols e assistências) com zero
+    public static void gerarEstatisticasIniciais(Disputa disputa) {
+        if (disputa == null || disputa.getTimes() == null) return;
+
+        if (disputa.getGolsPorTime() == null) {
+            disputa.setGolsPorTime(new HashMap<>());
+        }
+        if (disputa.getGolsPorJogador() == null) {
+            disputa.setGolsPorJogador(new HashMap<>());
+        }
+        if (disputa.getAssistenciasPorJogador() == null) {
+            disputa.setAssistenciasPorJogador(new HashMap<>());
+        }
+
+        for (Time time : disputa.getTimes()) {
+            disputa.getGolsPorTime().putIfAbsent(time, 0);
+            if (time.getJogadores() != null) {
+                for (Jogador jogador : time.getJogadores()) {
+                    disputa.getGolsPorJogador().putIfAbsent(jogador, 0);
+                    disputa.getAssistenciasPorJogador().putIfAbsent(jogador, 0);
+                }
+            }
+        }
+    }
+
+    // entre dois times distintos da disputa. Atualiza mapas e retorna a string do placar.
+    public static String gerarResultado(Disputa disputa) {
+        if (disputa == null || disputa.getTimes() == null || disputa.getTimes().getSize() < 2) {
+            return "Disputa sem times suficientes";
+        }
+        // garantir mapas e entradas iniciais (inline)
+        if (disputa.getGolsPorTime() == null) disputa.setGolsPorTime(new HashMap<>());
+        if (disputa.getGolsPorJogador() == null) disputa.setGolsPorJogador(new HashMap<>());
+        if (disputa.getAssistenciasPorJogador() == null) disputa.setAssistenciasPorJogador(new HashMap<>());
+        for (Time t : disputa.getTimes()) {
+            disputa.getGolsPorTime().putIfAbsent(t, 0);
+            if (t.getJogadores() != null) {
+                for (Jogador j : t.getJogadores()) {
+                    disputa.getGolsPorJogador().putIfAbsent(j, 0);
+                    disputa.getAssistenciasPorJogador().putIfAbsent(j, 0);
+                }
+            }
+        }
+
+        int size = disputa.getTimes().getSize();
+        int idxA = random.nextInt(size);
+        int idxB;
+        do { idxB = random.nextInt(size); } while (idxB == idxA);
+        Time timeA = disputa.getTimes().get(idxA);
+        Time timeB = disputa.getTimes().get(idxB);
+
+        disputa.getGolsPorTime().putIfAbsent(timeA, disputa.getGolsPorTime().getOrDefault(timeA, 0));
+        disputa.getGolsPorTime().putIfAbsent(timeB, disputa.getGolsPorTime().getOrDefault(timeB, 0));
+
+        int golsA = random.nextInt(8); // 0..7
+        int golsB = random.nextInt(8);
+
+        // registra gols do time A (inclui chance de assistência 60%)
+        for (int i = 0; i < golsA; i++) {
+            if (timeA.getJogadores() != null && timeA.getJogadores().getSize() > 0) {
+                int qtd = timeA.getJogadores().getSize();
+                Jogador artilheiro = timeA.getJogadores().get(random.nextInt(qtd));
+                disputa.getGolsPorJogador().put(artilheiro, disputa.getGolsPorJogador().getOrDefault(artilheiro, 0) + 1);
+                if (qtd > 1 && random.nextDouble() < 0.6) {
+                    Jogador assistente;
+                    do { assistente = timeA.getJogadores().get(random.nextInt(qtd)); } while (assistente == artilheiro);
+                    disputa.getAssistenciasPorJogador().put(assistente, disputa.getAssistenciasPorJogador().getOrDefault(assistente, 0) + 1);
+                }
+            }
+        }
+        // registra gols do time B (inclui chance de assistência 60%)
+        for (int i = 0; i < golsB; i++) {
+            if (timeB.getJogadores() != null && timeB.getJogadores().getSize() > 0) {
+                int qtd = timeB.getJogadores().getSize();
+                Jogador artilheiro = timeB.getJogadores().get(random.nextInt(qtd));
+                disputa.getGolsPorJogador().put(artilheiro, disputa.getGolsPorJogador().getOrDefault(artilheiro, 0) + 1);
+                if (qtd > 1 && random.nextDouble() < 0.6) {
+                    Jogador assistente;
+                    do { assistente = timeB.getJogadores().get(random.nextInt(qtd)); } while (assistente == artilheiro);
+                    disputa.getAssistenciasPorJogador().put(assistente, disputa.getAssistenciasPorJogador().getOrDefault(assistente, 0) + 1);
+                }
+            }
+        }
+
+        disputa.getGolsPorTime().put(timeA, disputa.getGolsPorTime().getOrDefault(timeA, 0) + golsA);
+        disputa.getGolsPorTime().put(timeB, disputa.getGolsPorTime().getOrDefault(timeB, 0) + golsB);
+
+        return String.format("%s %d x %d %s", timeA.getNome(), golsA, golsB, timeB.getNome());
+    }
+
 }
 
