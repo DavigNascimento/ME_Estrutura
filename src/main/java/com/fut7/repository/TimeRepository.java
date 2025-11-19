@@ -70,7 +70,7 @@ public class TimeRepository {
     {
         Time time = findById(t.getId());
         time.setCidadeSede(t.getCidadeSede());
-        time.setEstadio(t.getEstadio());
+        time.setPatrocinio(t.getPatrocinio());
         time.setJogadores(t.getJogadores());
         time.atribuirNumeros();
         time.setNome(t.getNome());

@@ -13,7 +13,7 @@ public class Time {
     private Lista<Jogador> jogadores;
     private Lista<Titulo> titulos;
     private String nome;
-    private String estadio;
+    private String patrocinio;
     private String cidadeSede;
     private String tecnico;
 
@@ -39,7 +39,7 @@ public class Time {
         }
     }
     public String toString() {
-        return String.format("%s | Estádio: %s | Cidade: %s | Técnico: %s", 
-            nome, estadio, cidadeSede, tecnico);
+        return String.format("%s | Patrocinador: %s | Cidade: %s | Técnico: %s", 
+            nome, patrocinio, cidadeSede, tecnico);
     }
 }
