@@ -21,9 +21,14 @@ public class Oitavas implements Fase {
         oitavas.enqueue(disputa);
     }
 
-    public void popDisputa() {
+    public Disputa popDisputa() {
         if (oitavas != null && !(oitavas.getSize() == 0)) {
-            oitavas.dequeue();
+            return oitavas.dequeue();
         }
+        return null;
+    }
+
+    public Fila<Disputa> getDisputas() {
+        return oitavas;
     }
 }
