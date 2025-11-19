@@ -38,4 +38,8 @@ public class Time {
             }
         }
     }
+    public String toString() {
+        return String.format("%s | Estádio: %s | Cidade: %s | Técnico: %s", 
+            nome, estadio, cidadeSede, tecnico);
+    }
 }

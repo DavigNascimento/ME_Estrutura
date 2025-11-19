@@ -18,6 +18,14 @@ public class Menu {
                 case 0:
                     System.out.println("Saindo...");
                     return;
+                
+                case 1:
+                    new MenuTime();
+                    break;
+
+                case 2:
+                    new MenuJogador();
+                    break;
             
                 default:
                     System.out.println("Opção escolhida: " + choice);

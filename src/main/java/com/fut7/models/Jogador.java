@@ -16,4 +16,15 @@ public class Jogador {
     // info. pelo time (obs.: com persistencia seria outra tabela)
     private int numeroCamisa;
     private String posicao;
+
+    @Override
+    public String toString() {
+        return String.format("[#%d] %s - %s | %d anos, %.2fm | %s", 
+            numeroCamisa, 
+            nome, 
+            posicao, 
+            idade, 
+            altura, 
+            nacionalidade);
+    }
 }
