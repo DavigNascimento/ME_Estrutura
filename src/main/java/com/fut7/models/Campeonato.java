@@ -9,6 +9,7 @@ import com.fut7.models.disputas.Oitavas;
 import com.fut7.models.disputas.Quartas;
 import com.fut7.models.disputas.Semifinal;
 import com.fut7.models.disputas.TerceiroColocado;
+import com.fut7.repository.TimeRepository;
 import com.fut7.util.DataGenerator;
 
 import lombok.Data;
@@ -29,10 +30,12 @@ public class Campeonato {
 
     public void povoarOitavas() {
         Fase oitavas = fases.dequeue();
+        Lista<Time> todosTimes = TimeRepository.getAll();
+
         for(int i = 0; i < 16; i += 2) {
             Lista<Time> times = new Lista<>();
-            times.add(DataGenerator.gerarTime());
-            times.add(DataGenerator.gerarTime());
+            times.add(todosTimes.getElementAt(i));
+            times.add(todosTimes.getElementAt(i + 1));
 
             Disputa disputaOitava = DataGenerator.gerarDisputaAleatoria(times);
             oitavas.adicionarDisputa(disputaOitava);
@@ -57,7 +60,7 @@ public class Campeonato {
         }
 
         // Gerar dados
-        // disputa.realizarDisputa();
+        DataGenerator.gerarResultado(disputa);
         Time t1 = disputa.getVencedor();
         
         if(proximaFase instanceof TerceiroColocado && faseAtual instanceof Semifinal) {

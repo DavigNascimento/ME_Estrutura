@@ -46,31 +46,6 @@ public class DataGenerator {
         return faker.company().name() + " " + tipos[random.nextInt(tipos.length)];
     }
 
-    // Inicializa estatísticas da disputa (gols e assistências) com zero
-    public static void gerarEstatisticasIniciais(Disputa disputa) {
-        if (disputa == null || disputa.getTimes() == null) return;
-
-        if (disputa.getGolsPorTime() == null) {
-            disputa.setGolsPorTime(new HashMap<>());
-        }
-        if (disputa.getGolsPorJogador() == null) {
-            disputa.setGolsPorJogador(new HashMap<>());
-        }
-        if (disputa.getAssistenciasPorJogador() == null) {
-            disputa.setAssistenciasPorJogador(new HashMap<>());
-        }
-
-        for (Time time : disputa.getTimes()) {
-            disputa.getGolsPorTime().putIfAbsent(time, 0);
-            if (time.getJogadores() != null) {
-                for (Jogador jogador : time.getJogadores()) {
-                    disputa.getGolsPorJogador().putIfAbsent(jogador, 0);
-                    disputa.getAssistenciasPorJogador().putIfAbsent(jogador, 0);
-                }
-            }
-        }
-    }
-
     public static Disputa gerarDisputaAleatoria(Lista<Time> times) {
         if (times == null || times.getSize() < 2) {
             throw new IllegalArgumentException("É necessário pelo menos dois times para gerar uma disputa.");
@@ -103,6 +78,7 @@ public class DataGenerator {
         if (disputa == null || disputa.getTimes() == null || disputa.getTimes().getSize() < 2) {
             return "Disputa sem times suficientes";
         }
+
         // Inicia os valores dos HashMaps se estiverem nulos com 0
         if (disputa.getGolsPorTime() == null) disputa.setGolsPorTime(new HashMap<>());
         if (disputa.getGolsPorJogador() == null) disputa.setGolsPorJogador(new HashMap<>());

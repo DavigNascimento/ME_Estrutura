@@ -9,7 +9,7 @@ public class Menu {
             OptionHandler optionHandler = new OptionHandler();
             optionHandler.addOption("Times");
             optionHandler.addOption("Jogadores");
-            optionHandler.addOption("Partidas");
+            optionHandler.addOption("Campeonato");
             optionHandler.addOption("Relatórios");
             int choice = optionHandler.getOption();
 
@@ -28,7 +28,7 @@ public class Menu {
                     break;
             
                 case 3:
-                    new MenuPartida();
+                    new MenuCampeonato();
                     break;
 
                 default:
