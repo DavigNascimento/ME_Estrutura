@@ -23,7 +23,6 @@ public class Menu {
                     System.out.println("Opção escolhida: " + choice);
                     break;
             }
-
         }
     }
 }

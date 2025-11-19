@@ -9,6 +9,7 @@ import lombok.Data;
 @Builder
 public class Time {
    
+    private long id;
     private Lista<Jogador> jogadores;
     private Lista<Titulo> titulos;
     private String nome;

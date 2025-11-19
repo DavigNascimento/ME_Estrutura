@@ -7,6 +7,7 @@ import lombok.Data;
 @Builder
 public class Jogador {
     
+    private long id;
     private String nome;
     private int idade;
     private double altura;
