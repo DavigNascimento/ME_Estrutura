@@ -81,15 +81,25 @@ public class MenuCampeonato {
                 Campeonato.paraSemifinal();
                 System.out.println("Avançou para a Semifinal.");
                 break;
-    
+
             case SEMI_FINAL:
                 Campeonato.paraFinal();
-                System.out.println("Avançou para a Final.");
+                System.out.println("Avançou para a disputa do Terceiro Colocado.");
                 break;
     
             case FINAL:
                 Campeonato.getCampeao();
                 System.out.println("Campeonato encerrado.");
+                System.out.println("Resultados da Final:");
+                Fase finalCampeonato = Campeonato.getResultados().getElementAt(4);
+                for(int i = 0; i < finalCampeonato.getDisputas().getSize(); i++) {
+                    Disputa disputa = finalCampeonato.getDisputas().getElementAt(i);
+                    System.out.println(disputa.getTimes().getElementAt(0).getNome() + " " +
+                                       disputa.getGolsPorTime().get(disputa.getTimes().getElementAt(0)) +
+                                       " x " +
+                                       disputa.getGolsPorTime().get(disputa.getTimes().getElementAt(1)) + " " +
+                                       disputa.getTimes().getElementAt(1).getNome());
+                }
                 Campeonato.resetar();
                 break;
     
@@ -102,6 +112,7 @@ public class MenuCampeonato {
     private void listarResultadosFaseAtual() {
         switch (Campeonato.getFaseAtual()) {
             case QUARTAS:
+                System.out.println("Resultados das Oitavas de Final:");
                 Fase oitavas = Campeonato.getResultados().getElementAt(0);
                 for(int i = 0; i < oitavas.getDisputas().getSize(); i++) {
                     Disputa disputa = oitavas.getDisputas().getElementAt(i);
@@ -111,21 +122,45 @@ public class MenuCampeonato {
                                        disputa.getGolsPorTime().get(disputa.getTimes().getElementAt(1)) + " " +
                                        disputa.getTimes().getElementAt(1).getNome());
                 }
-                System.out.println("Resultados das Oitavas de Final:");
                 break;
     
             case SEMI_FINAL:
                 System.out.println("Resultados das Quartas de Final:");
+                Fase quartas = Campeonato.getResultados().getElementAt(1);
+                for(int i = 0; i < quartas.getDisputas().getSize(); i++) {
+                    Disputa disputa = quartas.getDisputas().getElementAt(i);
+                    System.out.println(disputa.getTimes().getElementAt(0).getNome() + " " +
+                                       disputa.getGolsPorTime().get(disputa.getTimes().getElementAt(0)) +
+                                       " x " +
+                                       disputa.getGolsPorTime().get(disputa.getTimes().getElementAt(1)) + " " +
+                                       disputa.getTimes().getElementAt(1).getNome());
+                }
                 break;
     
             case FINAL:
                 System.out.println("Resultados da Semifinal:");
+                Fase semifinal = Campeonato.getResultados().getElementAt(2);
+                for(int i = 0; i < semifinal.getDisputas().getSize(); i++) {
+                    Disputa disputa = semifinal.getDisputas().getElementAt(i);
+                    System.out.println(disputa.getTimes().getElementAt(0).getNome() + " " +
+                                       disputa.getGolsPorTime().get(disputa.getTimes().getElementAt(0)) +
+                                       " x " +
+                                       disputa.getGolsPorTime().get(disputa.getTimes().getElementAt(1)) + " " +
+                                       disputa.getTimes().getElementAt(1).getNome());
+                }
+
+                System.out.println("\nResultados do Terceiro Colocado:");
+                Fase terceiro = Campeonato.getResultados().getElementAt(3);
+                for(int i = 0; i < terceiro.getDisputas().getSize(); i++) {
+                    Disputa disputa = terceiro.getDisputas().getElementAt(i);
+                    System.out.println(disputa.getTimes().getElementAt(0).getNome() + " " +
+                                       disputa.getGolsPorTime().get(disputa.getTimes().getElementAt(0)) +
+                                       " x " +
+                                       disputa.getGolsPorTime().get(disputa.getTimes().getElementAt(1)) + " " +
+                                       disputa.getTimes().getElementAt(1).getNome());
+                }
                 break;
-    
-            case FIM:
-                System.out.println("Resultados da Final:");
-                break;
-    
+
             default:
                 System.out.println("Fase desconhecida.");
                 return;

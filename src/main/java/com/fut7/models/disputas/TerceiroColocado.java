@@ -33,9 +33,6 @@ public class TerceiroColocado implements Fase {
             Disputa disputa = this.disputa.dequeue();
             DataGenerator.gerarResultado(disputa);
 
-            System.out.println("Disputa pelo Terceiro Colocado realizada entre: " +
-                disputa.getTimes().getElementAt(0).getNome() + " e " + disputa.getTimes().getElementAt(1).getNome());
-
             resultados.adicionarDisputa(disputa);
         }
         
