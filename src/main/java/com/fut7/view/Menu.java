@@ -31,6 +31,10 @@ public class Menu {
                     new MenuCampeonato();
                     break;
 
+                case 4:
+                    new MenuRelatorio();
+                    break;
+
                 default:
                     System.out.println("Opção escolhida: " + choice);
                     break;
