@@ -4,8 +4,6 @@ import com.fut7.models.Campeonato;
 
 public class MenuCampeonato {
     
-    private Campeonato campeonato;
-
     public MenuCampeonato() {
         System.out.println("\n=== MENU Campeonato ===");
         
@@ -31,7 +29,7 @@ public class MenuCampeonato {
                     break;
                 
                 case 3:
-                    campeonato = null;
+                    Campeonato.resetar();
                     System.out.println("Campeonato resetado.");
                     break;
 
@@ -43,32 +41,29 @@ public class MenuCampeonato {
     }
 
     private void iniciarCampeonato() {
-        if(campeonato != null) {
+        if(Campeonato.iniciado()) {
             System.out.println("Campeonato já iniciado!");
             return;
         }
-        campeonato = new Campeonato();
+        Campeonato.iniciar();
 
         try {
-            campeonato.povoarOitavas();
+            Campeonato.povoarOitavas();
 
         } catch (IllegalStateException e) {
             System.out.println(e.getMessage());
-            campeonato = null;
+            Campeonato.resetar();
             return;
         }
         System.out.println("Campeonato iniciado com sucesso!");
     }
 
     private void proximaFase() {
-        if(campeonato == null) {
+        if(!Campeonato.iniciado()) {
             System.out.println("Campeonato não iniciado. Inicie o campeonato primeiro.");
             return;
         }
-        if(campeonato.getFases().getSize() < 2) {
-            System.out.println("Não há fases suficientes para avançar.");
-            return;
-        }
-        System.out.println("Avançou para a próxima fase do campeonato.");
+        System.err.println("Funcionalidade ainda não implementada.");
+        //System.out.println("Avançou para a próxima fase do campeonato.");
     }
 }

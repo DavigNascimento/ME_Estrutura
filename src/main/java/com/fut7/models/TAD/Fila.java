@@ -49,6 +49,11 @@ public class Fila<T> {
         } while (current != tail.getNext());
     }
 
+    public void clear() {
+        tail = null;
+        size = 0;
+    }
+
     public No<T> getTail() {
         return tail;
     }
