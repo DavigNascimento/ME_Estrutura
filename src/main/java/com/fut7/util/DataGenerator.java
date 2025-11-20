@@ -32,8 +32,16 @@ public class DataGenerator {
     }
 
     public static Time gerarTime() {
+        // Garante que o nome do time tenha pelo menos duas palavras
+        String nome;
+        do {
+            nome = faker.team().name();
+            if (nome == null) nome = "";
+            nome = nome.trim().replaceAll("\\s+", " ");
+        } while (nome.split(" ").length <= 2);
+
         return Time.builder()
-            .nome(faker.team().name())
+            .nome(nome)
             .jogadores(new Lista<>())
             .patrocinio(gerarPatrocinador())
             .cidadeSede(faker.address().cityName())
@@ -98,8 +106,10 @@ public class DataGenerator {
         disputa.getGolsPorTime().putIfAbsent(timeA, disputa.getGolsPorTime().getOrDefault(timeA, 0));
         disputa.getGolsPorTime().putIfAbsent(timeB, disputa.getGolsPorTime().getOrDefault(timeB, 0));
 
-        int golsA = random.nextInt(8); // 0..7
-        int golsB = random.nextInt(8);
+        // Gera gols 0..4 e garante que não sejam iguais sem usar loop potencialmente longo
+        int golsA = random.nextInt(2);           // 0..4
+        int golsB = random.nextInt(3);           // 0..3
+        if (golsB >= golsA) golsB++;             // agora golsB está em 0..4 e != golsA
 
         // registra gols do time A (inclui chance de assistência 60%)
         for (int i = 0; i < golsA; i++) {

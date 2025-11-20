@@ -110,6 +110,10 @@ public class MenuCampeonato {
     }
 
     private void listarResultadosFaseAtual() {
+        if(!Campeonato.iniciado()) {
+            System.out.println("Campeonato não iniciado. Inicie o campeonato primeiro.");
+            return;
+        }
         switch (Campeonato.getFaseAtual()) {
             case QUARTAS:
                 System.out.println("Resultados das Oitavas de Final:");
