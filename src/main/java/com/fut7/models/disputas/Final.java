@@ -29,16 +29,20 @@ public class Final implements Fase {
         return null;
     }
     
-    public void realizarDisputas() {
+    public Fase realizarDisputas() {
         if (finalistas == null || finalistas.getSize() == 0) {
             System.out.println("Nenhuma disputa para realizar na Final.");
-            return;
+            return null;
         }
 
+        Final resultadoFinal = new Final();
         while (finalistas.getSize() > 0) {
             Disputa disputa = finalistas.dequeue();
             DataGenerator.gerarResultado(disputa);
+            resultadoFinal.adicionarDisputa(disputa);
         }
+
+        return resultadoFinal;
     }
 
     public Fila<Disputa> getDisputas() {

@@ -29,16 +29,20 @@ public class Oitavas implements Fase {
         return null;
     }
 
-    public void realizarDisputas() {
+    public Fase realizarDisputas() {
         if (oitavas == null || oitavas.getSize() == 0) {
             System.out.println("Nenhuma disputa para realizar nas Oitavas.");
-            return;
+            return null;
         }
-
+        
+        Oitavas resultados = new Oitavas();
         while (oitavas.getSize() > 0) {
             Disputa disputa = oitavas.dequeue();
             DataGenerator.gerarResultado(disputa);
+            resultados.adicionarDisputa(disputa);
         }
+
+        return resultados;
     }
 
     public Fila<Disputa> getDisputas() {

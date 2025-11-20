@@ -46,16 +46,20 @@ public class Semifinal implements Fase{
         return disputa;
     }
     
-    public void realizarDisputas() {
+    public Fase realizarDisputas() {
         if (semifinal == null || semifinal.getSize() == 0) {
             System.out.println("Nenhuma disputa para realizar na Semifinal.");
-            return;
+            return null;
         }
 
+        Semifinal resultados = new Semifinal();
         while (semifinal.getSize() > 0) {
             Disputa disputa = semifinal.remove(0);
             DataGenerator.gerarResultado(disputa);
+            resultados.adicionarDisputa(disputa);
         }
+
+        return resultados;
     }
 
     public Fila<Disputa> getDisputas() {

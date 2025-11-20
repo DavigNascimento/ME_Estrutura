@@ -22,19 +22,24 @@ public class TerceiroColocado implements Fase {
         return null;
     }
 
-    public void realizarDisputas() {
+    public Fase realizarDisputas() {
         if (disputa == null || disputa.getSize() == 0) {
             System.out.println("Nenhuma disputa para realizar para o Terceiro Colocado.");
-            return;
+            return null;
         }
 
+        TerceiroColocado resultados = new TerceiroColocado();
         while (disputa.getSize() > 0) {
             Disputa disputa = this.disputa.dequeue();
             DataGenerator.gerarResultado(disputa);
 
             System.out.println("Disputa pelo Terceiro Colocado realizada entre: " +
                 disputa.getTimes().getElementAt(0).getNome() + " e " + disputa.getTimes().getElementAt(1).getNome());
+
+            resultados.adicionarDisputa(disputa);
         }
+        
+        return resultados;
     }
 
     public Fila<Disputa> getDisputas() {

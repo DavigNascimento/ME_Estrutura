@@ -29,16 +29,20 @@ public class Quartas implements Fase {
         return null;
     }
 
-    public void realizarDisputas() {
+    public Fase realizarDisputas() {
         if (quartas == null || quartas.getSize() == 0) {
             System.out.println("Nenhuma disputa para realizar nas Quartas.");
-            return;
+            return null;
         }
-
+        
+        Quartas resultados = new Quartas();
         while (quartas.getSize() > 0) {
             Disputa disputa = quartas.dequeue();
             DataGenerator.gerarResultado(disputa);
+            resultados.adicionarDisputa(disputa);
         }
+
+        return resultados;
     }
 
     public Fila<Disputa> getDisputas() {

@@ -19,6 +19,7 @@ import lombok.Data;
 public class Campeonato {
     
     private static final Fila<Fase> fases = new Fila<>();
+    private static final Lista<Fase> resultados = new Lista<>();
     private static TiposDisputa faseAtual;
     private static boolean iniciado = false;
 
@@ -39,14 +40,14 @@ public class Campeonato {
     }
 
     public static void povoarOitavas() {
-        Fase oitavas = fases.dequeue();
+        Fase oitavas = fases.getElementAt(0);
         Lista<Time> todosTimes = TimeRepository.getAll();
 
         if(TimeRepository.getAll().getSize() < 16) {
             throw new IllegalStateException("Não há times suficientes para iniciar o campeonato. É necessário pelo menos 16 times.");
         }
 
-        for(int i = 0; i < 16; i += 2) {
+        for(int i = 0; i < 15; i++) {
             Lista<Time> times = new Lista<>();
             times.add(todosTimes.getElementAt(i));
             times.add(todosTimes.getElementAt(i + 1));
@@ -54,17 +55,28 @@ public class Campeonato {
             Disputa disputaOitava = DataGenerator.gerarDisputaAleatoria(times);
             oitavas.adicionarDisputa(disputaOitava);
         }
-        fases.enqueue(oitavas);
 
         iniciado = true;
         faseAtual = TiposDisputa.OITAVAS;
     }
     
-    public static boolean iniciado() {
-        return iniciado;
-    }
-
     public static void paraQuartas() {
+        Fase oitavas = fases.dequeue();
+        Fase quartas = fases.dequeue();
+
+        Fase resultadosRetornados = new Oitavas();
+        Fase resultadosOitavas = oitavas.realizarDisputas();
+
+        for(int i = 0; i < 15; i++) {
+            for(int j = 0; j < resultadosOitavas.getDisputas().getSize(); j++) {
+                Disputa disputa = resultadosOitavas.getDisputas().dequeue();
+                resultadosRetornados.adicionarDisputa(disputa);
+                quartas.adicionarDisputa(disputa);
+            }
+        }
+
+        resultados.add(resultadosRetornados);
+        fases.enqueue(quartas);
         faseAtual = TiposDisputa.QUARTAS;
     }
 
@@ -81,9 +93,18 @@ public class Campeonato {
     }
 
     public static void getCampeao() {
-        Fase finalCampeonato = fases.dequeue();
-        Disputa disputaFinal = finalCampeonato.getDisputas().getElementAt(0);
-        Time campeao = disputaFinal.getVencedor();
-        System.out.println("Campeão do Campeonato: " + campeao.getNome());
+        faseAtual = TiposDisputa.FIM;
+    }
+
+    public static boolean iniciado() {
+        return iniciado;
+    }
+
+    public static TiposDisputa getFaseAtual() {
+        return faseAtual;
+    }
+
+    public static Lista<Fase> getResultados() {
+        return resultados;
     }
 }

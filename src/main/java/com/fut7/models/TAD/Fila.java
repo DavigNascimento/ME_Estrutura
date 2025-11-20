@@ -49,6 +49,17 @@ public class Fila<T> {
         } while (current != tail.getNext());
     }
 
+    public T getElementAt(int index) {
+        if (index < 0 || index >= size || tail == null) {
+            return null;
+        }
+        No<T> current = tail.getNext();
+        for (int i = 0; i < index; i++) {
+            current = current.getNext();
+        }
+        return current.getValue();
+    }
+
     public void clear() {
         tail = null;
         size = 0;

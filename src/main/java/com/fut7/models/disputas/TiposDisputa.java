@@ -6,7 +6,8 @@ public enum TiposDisputa {
     QUARTAS("Quartas"),
     SEMI_FINAL("Semi-Final"),
     TERCEIRO_COLOCADO("Terceiro Colocado"),
-    FINAL("Final");
+    FINAL("Final"),
+    FIM("Fim");
 
     private final String label;
 
