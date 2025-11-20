@@ -75,6 +75,8 @@ public class MenuRelatorio {
                     timeA.getNome(), golsA + " x " + golsB, timeB.getNome());
             }
         }
+        Fase fase = resultados.getElementAt(resultados.getSize() - 1);
+        System.out.println("CAMPEÃO: " + fase.getDisputas().getElementAt(0).getVencedor().getNome());
         System.out.println();
     }
 
