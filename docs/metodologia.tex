@@ -1,0 +1,27 @@
+A aplicação necessáriamente deve implementar as Listas e Filas ou Pilhas. Nesse caso foram usadas Filas, As Listas serviram como uma forma genérica de armazenar uma serie de dados, como é demonstrado na Figura~\ref{fig:figura2}, em algumas classes como Disputa, sendo composta principalmente por uma Lista de dois Times. As Filas foram usadas no contexto de ordenação das operações, em operações que precisam ser encadeadas em ordem, como foi usado no campeonato para que primeiro acontecam as Oitavas, em seguida Quartas e assim por diante, não sendo possivel a remoção por cherry picking, isso é, por id.
+
+O sistema foi desenvolvido usando Java, algumas dependencias foram adicionadas, das principais temos:
+\begin{itemize}
+	\item \textbf{Lombok}:
+	
+	Esse foi usado para facilitar e agilizar a criação das classes, evidentemente torna mais legivel o código, visto que é mais simples e possui menos médotos as classes, principalmente aquelas com mais
+
+	\item \textbf{JavaFaker}
+	
+	Esse é relevante o suficiente para ser tratado no seguinte tópico. Em suma ele gera dados.
+	
+\end{itemize}
+
+\section{Geração de Dados}
+Essa aplicação é um MPV, sendo incompleta para uso final. Ela apenas constitui da lógica e aplicação dos requisitos de forma necessária para uma apresentação inicial, visto também que foi feita em menos de 7 (sete) dias. Por isso, é impossível o usuário, também tenha em mente que não há sistema de login, digitar as informações de cada jogador, de cada time e os individuais resultados de cada disputa. Também é relevante destacar que são muitos dados a serem digitados nesse caso, contendo mais de 100 jogadores e 16 disputas nas oitavas, 8 nas quartas e assim por diante.
+
+Visto esse grande numero de dados, preferimos manter apenas automático por enquanto, assim é gerado automaticamente a quantidade de times necessária para o campeonato, cada time com seus respectivos jogadores. Essa geração foi feira com o JavaFaker, contendo ferramentas para gerar nomes de time, empresas, pessoas e outros importantes campos. A geração dos resultados por disputa foi feita com a biblioteca Random do Java, para gerar os gols por cada time.
+
+O processo de desenvolvimento seguiu etapas para sua conclusão e melhor estrutura, inicialmente foram implementadas as classes de dominio, como Jogador, Time, Disputa e outras de igual importância, em seguida a estrutura inicial dos menus, sem os métodos implementados, detalhe para que foi criado um sistema de menus, uma Classe, para padronizar os menus e reduzir os pontos de falha do sistema, como entrada de dados. Em seguida foram desenvolvidos os repositórios para armazenar os dados dos jogadores e times, logo após a logica do Campeonato. Essa lógica é mais complexa e está na própria classe Campeonato, que se comporta como estática, seus atributos e médotos. Em paralelo com o Campeonato foi implementado o menu de Relatórios, mostrando os resultados de cada fase e posições dos times, vencedor da final, segundo e terceiro colocado e placar de gols dos jogadores.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=.14]{figuras/diagrama_classes.png}
+	\caption{Diagrama de Classes da aplicação}
+	\label{fig:figura2}
+\end{figure}
